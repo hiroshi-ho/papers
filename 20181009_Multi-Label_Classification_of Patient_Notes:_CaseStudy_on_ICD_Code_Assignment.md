@@ -97,7 +97,64 @@ Harutyunyan 2017らのmulti-task learningについて参照せよ。
 
 ### ICD9 codes
 ICD9の情報について書いてあることはありがたい。
-*
+* label 自体は　ICD9 taxonomyに従う。
+* そのまま引用する。
+* The International Classification of Diseases is a repository maintained by the WHO.
+* hierarchical structure を持つ。つまり、特定の診断コードは、 is-a relation によって繋がっている。
+
+* hierarchical structure は8つの階層構造を持つ。less specific から　more specific まで。
+
+* ICD-9 code はdiagnosis とprocedure コードの両方を併せ持つ。
+* ICD-9 codeについて、今回はdiagnosis code のみに注目する。
+
+* ICD-9 code は5-digits で構成されており、3 primary digits と2 secondary digits の2つに別れる。
+
+* table 1 を詳しくは参照せよ。
+
+* training sets については、無視したものは無い。また、table1 にあるように、label density は極めて小さい。よって、このcode-assignnment task は(extreme)multi-label classification task に該当すると言える。
+
+### Inputs text の前処理について
+ (i) SpaCy を用いたtokenize
+ (ii) convert all non-alphabetical characters to pesudo-tokens
+ (iii) 最低5回以上train内で出現するtokenのみでvocabを作成
+ (iv) map any out-of-vocab word to its nearest word in the vocab using edit distance
+
+ preprocessinによって、unique  token が1005489から121595 に減っているが、本当に大丈夫なのだろうか。
+
+
+### Hierarchical Segmentation
+input text をtokenize する他に、もう一段階上のsegmentation も行った。
+理由についても書いてある。
+
+* 1: 長いドキュメントを扱う都合上、その系列長分のsequence model を作成することは不可能。例えば、GRUなどである。
+* 先行研究でのdocument classification においては、文章の一部を切り取る(truncate)することでこの問題を解決しようと試みた。
+
+* しかし、discharge summaries においては、tranceparence の名目上、documentの一部を切り取ることは許されない。
+
+## Methods
+4つの手法について、歴史とともに述べている。
+
+* SVM: sklearn を用いている。
+* CBOW: word order  を無視しているという欠点が存在する。
+* (i) it ignores word or- der; i.e., if negation will appear before a diagnosis mention, the model would not be able to learn this; (ii) multi-word- expressions cannot be identified by the model
+* CNN : 1 layer, deeplayer の両方で実験した。
+
+* HA_GRU
+やっとモデルの説明に入る。
+* GRUを全文章に適用するのは、あまりにも遅い。
+* hierarchical model with two levels of bidirectional GRU encoding を用いている。
+* 2つめのGRUについては、各ラベルに対して異なるweight がかかるようなattntion機構を取り入れている。
+---
+* 各input 文章は最終的には、固定長ベクトル 64 dim にencodeされる。
+* train はcategorical cross entropy を今回は用いている。
+
+![HA_GRU](img/00012.png)
+
+## Results
+Table 2 を参照すること。スコアは以前として低い。
+Joint embeddings of - の文献と要比較。
+
+
 
 ### 次に参照すべき論文
 [Demner Fushman and Elhadad 2016] Demner Fushman, D., and Elhadad, N. 2016. Aspiring to unintended conse- quences of natural language processing: A review of recent developments in clinical and consumer-generated text pro- cessing. Yearbook
