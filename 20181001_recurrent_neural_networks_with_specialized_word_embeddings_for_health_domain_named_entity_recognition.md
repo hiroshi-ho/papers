@@ -1,5 +1,5 @@
 # Recurrent neural networks with specialized word embeddings for health-domain named-entity recognition
-* しかし、特徴量エンジニアリングによるアプローチはtime-consumingであり、時間もかかる。
+* 特徴量エンジニアリングによるアプローチはtime-consumingであり、時間もかかる。
 
 ## Abstract
  * これまでのclinical concept extraction やDrag name recognitionでは、特徴量エンジニアリングやSVMとの組み合わせでしかなかった。
@@ -112,7 +112,7 @@
 
 #### 6.conclusiion
 * mimic3 とcommon crawl のembedding と、character embedding, これまでの特徴量エンジニアリングとを組み合わせて、結局のところBi-LSTM-CRFが一番精度が高いということがわかった。
-* handcraft な特徴量を加えても、あまりパフォーマンスの改善には繋がらないということがわかった。
+* handcraft な特徴量を加えても、あまりパフォーマンスの改善には繋がらないということが分かった。
 
 
 

@@ -8,7 +8,7 @@
 
  * モデルの解釈性も保持しているので、医療テキストにも用いることが可能である。
 
- ## 1. Introduction
+## 1. Introduction
 
 * 普通では珍しい？text classification を導入に用いている。
 
@@ -64,13 +64,13 @@
 
   * $f_0,f_1,f_2$ についてそれぞれ以下のように定義している。
 
-   $f_0$ : one-hot 文章行列から、vocab 文章行列に飛ばす操作
+  $f_0$ : one-hot 文章行列から、vocab 文章行列に飛ばす操作
 
-   $f_1$ : 文章行列をfix長のベクトル $\boldsymbol{z}$ に変換する操作
+  $f_1$ : 文章行列をfix長のベクトル $\boldsymbol{z}$ に変換する操作
 
-   $f_2$ : fix長文章ベクトルを、classifierに掛けるため、 $\boldsymbol{z}$ をlabel, multilabel $\boldsymbol{y}$ に変換する操作
+  $f_2$ : fix長文章ベクトルを、classifierに掛けるため、 $\boldsymbol{z}$ をlabel, multilabel $\boldsymbol{y}$ に変換する操作
 
-   $f_0,f_1$ については　word2vecの例を挙げるまでもない。
+   $f_0,f_1$  については　word2vecの例を挙げるまでもない。
 
 
 ### max pooling の重要性について
