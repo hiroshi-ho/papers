@@ -116,3 +116,23 @@ fig2 について、訳しておく必要があるでしょう。
 
 ### Graph convolutional network
 　結局のところ、end-to-end での画像生成が必要なので、NNの力を借りる必要がある。
+ この論文でも伝統的なgraph convolution ににたGCNを用いる。　input graph の次元が $D_{in}$ であるとしたら、各ノードとエッジに対して、 $$D_{out} 次元の新しいベクトルを計算させる。
+
+ * Output vectors are a function of a neighborhood of their corresponding inputs, so that each graph convolution layer propagates information along edges of the graph. A graph convolution layer applies the same function to all edges of the graph, allowing a single layer to operate on graphs of arbitrary shape.
+
+ * より具体的な導出についても書かれている。
+
+![figure 3 ](img/00013.png)
+
+* image を生成するためには、graph domain から　image domain に移行する必要がある。その詳細についてはFig4 を参照すること。
+
+* object layout network は embedding vector $v_i$ を受け取り、mask regression network に soft binary mask $m_i$　をともに渡す。このmask は　biliniear interpolation[18] を用いてbounding box の位置へと渡される。
+
+
+### Cascaded Refinement Networks
+あるscene layout が渡された時、そのscene layout 内の object の位置を尊重するように画像を合成する。このタスクを遂行するためにここではCRNを用いることにした。
+
+### Discriminators
+ image GAN の説明について。
+
+20181010 一旦中断
