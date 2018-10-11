@@ -57,3 +57,4 @@ CNN filter の初期化に使いたい、使えそうな、有用n-gram をど�
 
 
 ## 次に読む論文
+Kim 2014 (baseline)
