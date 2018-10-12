@@ -64,12 +64,74 @@ Introのまとめとして、本論文の寄与を3点にまとめている。
 
 ### 3.1 overall Formulation
  * given : $I$ (image)
-  この時、$G$は2つのインプット
+  この時、$G$は2つのインプット,画像特徴量 $\boldsymbol{f}(I)$ 及び、random vector $\boldsymbol{z}$ をinputとして受け取る。　画像特徴量の関数にはVGG16[26] を採用した。
+
+* random vector &\boldsymbol{z}$
+ このinputによって、常に異なる説明を生成する。
+
+* 説明の多様性は、$\boldsymbol{z}$ の分散を調整することにより可能
+
+* sentence decoder としてLSTMを採用
+
+* $E$ : evaluator もまたニューラルネットであり、Gと似ている。しかしその動作は異なる。
+
+  evaluator のinputとして
+$$I, S = (w_0,w_1, ...)$$
+を考え、これをvectorに変換した
+$$\boldsymbol{f}(I),\boldsymbol{h}(S)$$
+
+をinput とする。特徴量への変換は先と同様に画像についてはCNN、文章はLSTM にて行う。
+
+次に、説明の質(quality)について、すなわち、どの程度文章が良く$I$を説明しているかについては、次の内積を考える。
+
+$$r_{\boldsymbol{\eta}}(I,S) = \sigma(\langle \boldsymbol{f}(I,\boldsymbol{\eta}_I), \boldsymbol{h}(S,\boldsymbol{\eta}_S) \rangle) \tag{2}$$
+
+を用いる。ただし、evaluatorのparameter として
+ $$\eta= (\boldsymbol{\eta}_I,\boldsymbol{\eta}_S)\tag{2'}$$
+
+ が存在する。$\sigma$ はlogistic 関数であり、$[0,1]$ 内での値を返す。
+
+* CNNと　LSTMはGと同じ構造を持つが、パラメータで結びついてはいないことに注意せよ。
+
+$G$ は、人間がつくった文章と見分けがつかないような説明文の生成を行うように学習させたいと今、考える。
+$E$ は、人工生成文と、人間らしい文とを見分けるように学習させたいと考える。
+
+これを定式化した場合、パラメータ $\boldsymbol{\theta,\eta}$ を用いて
+
+$$min_{\theta} max_{\eta} \mathcal{L} (G_\boldsymbol{\theta},E_\boldsymbol{\eta})$$
+
+と定式化される。目的関数　$\mathcal{L}$ は
 
 
+ ![objfunc](img/00035.png)
+
+ と定式化される。
+
+ただしここで、$\mathcal{P}_I$  : 画像からの生成文、　$\mathcal{N}_0$ は正規分布、$G_{\boldsymbol{\theta}}(I,\boldsymbol{z})$ は画像とrandom vector $\boldsymbol{z}$ から
+生成した文を指す。
+
+### 3.2 Training G : policy gradient and Early Feedback
+
+policy gradient を学習戦略に用いる。この時
+conditions : $\boldsymbol{f}(I)$
+inputs : preceeding words $S_{1:t-1}$
+conditional distributions
+$$ \boldsymbol{\pi}_{\boldsymbol{\theta} }(w_t|\boldsymbol{f}(I),\boldsymbol{z},S_{1:t-1})$$
+
+この計算が、LSTM で前にword step ごとに進んでいくことで得られる。
+reward は　$r_{\boldsymbol{\eta}}(I,S)$ になる。
+
+
+ここで、実験上の困難-文章が完全に終わりまで生成されない限り、評価できない-　に対して、early feedback を彼らは提唱した。文章の途中に置いて、将来取りうるrewardについて以下のように定式化される。
+
+ ![ealy feedback](img/00036.png)
+
+手法についてはここまで、事件の舞台設定については、一旦省略する。
+非常に面白い論文であることに変わりはない。
 
 ## 次に見るべき論文
 [29],[22],[7]
 22: conditional GAN
 7 : GAN
 34 : GAN for text generation
+26 : 今回採用した画像特徴量抽出関数
