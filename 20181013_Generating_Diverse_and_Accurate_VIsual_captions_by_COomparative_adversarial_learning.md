@@ -109,14 +109,42 @@ $\mathcal{C^g}$ : machine-generated caption $g$
 ### 3.4 discussion
 * dirscirminator でtrain する際には、先行文献[4,5] については追加の正則化項が存在する。この正則化項目は、これらの先行文献においては mismatch caption の数を減らすために存在している。
 
-完全な文を待たない条件下での　*intermediate reward* は以下の式で与えられる・。
-
 $$Q_{\theta,\phi}(g_t|I,g_{0:t-1}) \simeq \frac{1}{K}\sum_{k = 1}^{K}D_\phi(g_{k,t}|I,C^{g_{k,t}})$$
 
  更新のためのgradientは論文(7) 式だが、これを理解するためには強化学習の教科書を読む必要がある。
 
+完全な文を待たない条件下での　*intermediate reward* は以下の式で与えられる・。
+
 
 * この論文では、comparison set  内に人間によって書かれた $C^h$ がそもそも存在しているので、match した image-caption 対 $h, I$ のcr-score を拡張することで、　$D_\phi$ が常に、一致caption を他のcaption と区別することに成功している。
+
+## 4 Experimental settings
+### Dataset
+ MSCOCO dataset: 123287 images and each one contain at least 5 human-written caption.
+
+### Implementation detail
+ ハイパーパラメータ調整など。ここでは省略する。
+
+### Baseline models
+(1) MLE : [7] のCNN-LSTM構造をbaseline とする。
+(2)G-GAN : conditional GAN [4]を用いた現状SOTAであるモデル。
+* [4]のconditional GAN モデルと本論文が異なるのは、caption生成時のcomparative adversarial layouts である。
+
+### Evaluation
+Accuracy 及び　Diversity の二点で評価している。Accuracyについては、既存の評価指標に則っての報告であり、Accuracy ベースではこの論文はSOTAではなく、MLE, c-GANと比較して最下位ではあるが、metricsの見直しについては先に述べたとおりである。
+
+* Diversityの評価　にはcaptionの特異値分解により得られる分散を評価基準に用いている。
+
+## 5 results
+### 5.1 Accuracy
+![acc results](img/00040.png)
+
+
+### 5.2 Diversity
+
+![diversity results](img/00041.png)
+
+
 ## 読むべき論文
 [16-18],[4-5] \
 [7] encoder decoer \
