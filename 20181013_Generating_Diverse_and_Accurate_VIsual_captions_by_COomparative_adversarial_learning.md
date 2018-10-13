@@ -145,6 +145,7 @@ Accuracy 及び　Diversity の二点で評価している。Accuracyについ�
 ![diversity results](img/00041.png)
 
 
+
 ## 読むべき論文
 [16-18],[4-5] \
 [7] encoder decoer \
