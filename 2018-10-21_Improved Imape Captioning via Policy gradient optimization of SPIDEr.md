@@ -112,7 +112,8 @@ $$V_\theta (g_{1:t}|\boldsymbol{x}^n,\boldsymbol{y}^n)= E_{g_{t+1 : T}}[R(g_{1:t
  * special case of deterministic transition function　での、$V$のgradientの導出について[2]
  * [30] Monte Carlo method を用いたGAN trainning について
  * [31,23] 勾配消失問題に対応した場合の、 $V$のgradient の近似について。
-
+ * 印刷するべきは[15,17,2,30,31,23]
+ * [15] non differentiable な対象を、image captionの文脈で最初に最適化しようとした論文
 
 ## 次に読むべき論文
 [1] AndersonらのSPICE評価指標
@@ -122,4 +123,5 @@ $$V_\theta (g_{1:t}|\boldsymbol{x}^n,\boldsymbol{y}^n)= E_{g_{t+1 : T}}[R(g_{1:t
 [2] actor critic algorithm の証明、必ず読む必要あり
 [31][23]　勾配消失問題についての対策式をこの2文献で導出してある。
 
-アルゴリズムは以下のとおりである。
+## 今説明できない語句
+BLEU,METEOR,ROUGE,CIDEr SPICE
