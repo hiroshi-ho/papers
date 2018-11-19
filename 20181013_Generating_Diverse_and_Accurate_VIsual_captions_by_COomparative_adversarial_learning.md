@@ -1,3 +1,4 @@
+
 # Generating Diverse and Accurate Visual Captions by Comparative Adversarial Learning
 
 # Abstract
