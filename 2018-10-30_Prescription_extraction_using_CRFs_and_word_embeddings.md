@@ -3,10 +3,10 @@
 * Hand writtern based なdischarge summaryから、如何にprescriptionの概念に関わるものを抽出するか
 
 ## 1.Introduction
-* そもそも、手書きのdischarge summary はコンピュータが読めるように書かれたものではない。
-* discharge summary からのmedication   entity 抽出で、例えば
+* そもそも、手書きのdischarge summary はコンピュータが読めるように書かれたものではない。a
 
   ![ex1](img/00055.png)
+  * discharge summary からのmedication   entity 抽出で、例えば
 
   である場合のmedication extractionは
 
